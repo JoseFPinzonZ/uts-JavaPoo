@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <script>
+        let cant=prompt(`Digite la cantidad de estudiantes: `);
+        let arrEstudiantes=[];
+        let objEstudiante={};
+        let nombreIntroducido, notaIntroducida;
+        let suma=0;
+        for (let i=1; i<=cant; i++){
+            nombreIntroducido=prompt(`Ingrese el nombre el estudiante ${i} `);
+            notaIntroducida=parseFloat(prompt(`Ingrese la nota del estudiante ${i}`));
+            objEstudiante.nombre=nombreIntroducido;
+            objEstudiante.nota=notaIntroducida;
+            arrEstudiantes.push(objEstudiante);
+            suma+=notaIntroducida; //La suma desde la variable
+            //suma+=objEstudiante.nota; La suma desde el objeto
+            //suma+=arrEstudiantes[i-1].nota; La suma desde el array
+            objEstudiante={};
+        }
+        let promedio=(suma/cant).toFixed(2);
+        console.log(`Los estudiantes inscritos y sus notas son ${arrEstudiantes}`);
+        console.log(`La nota promedio de los ${cant} estudiantes es ${promedio}`);
+        
+    </script>
+</head>
+
+</html>
