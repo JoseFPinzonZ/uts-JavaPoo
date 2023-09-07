@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <script>
+        //Programa que ingresa a un array estudiantes, con nombre, edad y notas de los 3 cortes.
+        let arrEstudiantes=[], arrPromedio=[]; //Array donde se almacena la informacion, cada posicion es un estudiante
+        let objEstudiante={}; //Objeto donde se guarda la informacion personal por estudiante
+        let nombreInsertado, notaInsertada, edadInsertada, estudianteMenorPromedio;
+        let suma=0;
+        let promedioMayor=5;
+        let cant=prompt(`Ingrese la cantidad de estudiantes: `); //prompt es para ingresar datos
+        for(let i=1; i<=cant; i++){//Ciclo para llenar las posiciones del arrEstudiantes
+
+            suma=0; //Reinicia la suma para no afectar el promedio en cada iteracion
+            nombreInsertado=prompt(`Ingrese el nombre del estudiante ${i}`);
+            objEstudiante.nombre=nombreInsertado; //crea la clave nombre e inserta su valor en el objeto Estudiante
+            
+            let arrNotas=[]; //Crea el array Notas vacio para cada vez que itere el ciclo
+            for(let x=0; x<3; x++){ //Ciclo for para las notas del estudiante
+                notaInsertada=parseFloat(prompt(`Ingrese la nota del corte ${x+1}`));
+                arrNotas.push(notaInsertada); //Empuja las notas al array Notas
+                suma+=notaInsertada;               
+            };
+            objEstudiante.notas=arrNotas; //Agrega el aaray Notas al valor de la clave notas del objeto estudiantes
+            let promedio=suma/3; //Suma las 3 notas del corte y las divide en 3
+            
+            if(promedio<=promedioMayor){//If para comparar y sacar el menor de los promedios
+                promedioMayor=promedio
+                estudianteMenorPromedio=objEstudiante.nombre;
+            };
+
+            edadInsertada=parseInt(prompt(`Ingrese la edad del estudiante ${i}`));
+            objEstudiante.edad=(edadInsertada); //Agrega la edad insertada al valor de la clave edad del obj estudiantes
+            
+            arrEstudiantes.push(objEstudiante); //Va empujando la informacion del objeto en cada iteracion del for
+            objEstudiante={}; //vacia el objeto para que inicie vacio en cada iteracion
+        }
+        console.log(arrEstudiantes); //muestra el array de estudiantes
+        console.log(`El estudiante con menor promedio es ${estudianteMenorPromedio}`)
+    </script>
+</head>
+
+</html>
