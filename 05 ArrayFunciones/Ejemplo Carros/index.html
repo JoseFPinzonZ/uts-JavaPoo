@@ -1,62 +1,93 @@
 <html>
-    <head>
-        <script>
-            let arraCarros=[], arraPlacaCarros=[], arrMM=[];
-            let objCarro={};
-            let placaInsert, colorInsert, cilindrajeInsert, cilindrajeMM=1600, carroMenor;
-            let cant=prompt(`Ingrese la cantidad de carros`);
-            let suma=0;
-            let menor, mayor=0;
-            for(let i=1; i<=cant; i++ ){
-                placaInsert=prompt(`Ingrese la placa del carro ${i}`);
-                objCarro.placa=placaInsert
 
-                colorInsert=prompt(`Ingrese el color del carro ${i}`);
-                objCarro.color=colorInsert;
+<head>
+    <script>
+        //Declaración e inicialización de variables.
+        let arraCarros = [], arraPlacaCarros = [], arrMenorMayorCilindrajes = [];
+        let objCarro = {};
+        let placaInsert, colorInsert, cilindrajeInsert, carroMenorCilindraje, cilindrajeMenor;
+        let cant = prompt(`Ingrese la cantidad de carros`); //Pide cantidad de carros
+        let suma = 0, CilindrajeMayor = 0;
+        //Se inicia un for que inicia en 1 y va hasta la cantidad de carros ingresados, aumentando de a 1 en 1.
+        for (let i = 1; i <= cant; i++) {
+            placaInsert = prompt(`Ingrese la placa del carro ${i}`); //Pide placa
+            objCarro.placa = placaInsert //Inserta placa al objeto
 
-                cilindrajeInsert=prompt(`Ingrese el cilindraje del carro ${i}`);
-                objCarro.cilindraje=cilindrajeInsert
+            colorInsert = prompt(`Ingrese el color del carro ${i}`); //Pide color
+            objCarro.color = colorInsert; //Inserta color al objeto
 
-                if(cilindrajeInsert>=1600){ //Segundo Punto
-                    arraPlacaCarros.push(placaInsert);
-                };
-                if(i===1){
-                    menor=cilindrajeInsert;
-                };
-                if(cilindrajeInsert<menor){ //Cuarto punto
-                    menor=cilindrajeInsert;
-                    carroMenor=placaInsert;
-                };
+            cilindrajeInsert = prompt(`Ingrese el cilindraje del carro ${i}`); //Pide cilindraje
+            objCarro.cilindraje = cilindrajeInsert //Inserta cilindraje al objeto
 
-                suma+=parseInt(cilindrajeInsert); //Tercer punto
-                arraCarros.push(objCarro);
-                objCarro={};
-                if(cilindrajeInsert>mayor){
-                    mayor=cilindrajeInsert;
-                };
-                
+            //Segundo Punto-Crear un array con las placas de los cilindrajes mayores a 1600.
+            //If para comparar cilindraje insertado si es mayor o igual a 1600.
+            if (cilindrajeInsert >= 1600) {
+                arraPlacaCarros.push(placaInsert); //Si se cumple la condición se empuja el cilindraje insertado al array de arrPlacaCarro
             };
-
-
-            let promedio=(suma/cant).toFixed(2);
-
-            arrMM.push(menor);
-            arrMM.push(mayor);
-            console.log(arraCarros); //Primer punto
-            console.log(arraPlacaCarros); //Sengudo Punto
-            console.log(`La placa del carro con menor cilingraje es ${carroMenor}`); //Cuarto punto
-            console.log(`El promedio del cilindraje promedio es ${promedio}`); //Tercer Punto
-            console.log(arrMM); //Quinto Punto
-
-            let pregunta=prompt(`Cual es el color de la siguiente placa`)
-            let colorcarro;
-            for(let a=0; a<arraCarros.length; a++){
-                if(pregunta===arraCarros[a].placa){
-                    console.log(`El color del carro de la placa ${arraCarros[a].placa} es ${arraCarros[a].color} `);
-                }else{
-                    console.log(`La placa ${pregunta} no existe esa placa`);
-                };
+            //If para escoger el valor del cilindraje del primer carro insertado y asignarlo a la variable de comparación osea para inicializar esta variable.
+            if (i === 1) { //Solo lo asignara una vez, en la primera iteración.
+                cilindrajeMenor = cilindrajeInsert;
             };
-       </script>
-    </head>
+            //Cuarto y quinto punto- 4.Mostrar placa del carro de menor cilindraje -5.Mostrar array con el menor y mayor cilindraje.
+            //If para comparar si el cilindraje insertado es menor o igual al cilindraje menor.
+            if (cilindrajeInsert < cilindrajeMenor) {
+                cilindrajeMenor = cilindrajeInsert; //Si se cumple se reemplaza cilindraje menor con cilindraje insertado para almacenar siempre el menor.
+                carroMenorCilindraje = placaInsert; //Se asigna la placa del menor cilindraje a la variable de carroMenorCilindraje y se muestra al final de las iteraciones.
+            };
+            //If para comprar si el cilindraje insertado es mayor o igual al cilindraje mayor.
+            if (cilindrajeInsert > CilindrajeMayor) {
+                CilindrajeMayor = cilindrajeInsert; //Si se cumple se reemplaza cilindraje mayor con cilindraje insertado para almacenar siempre el mayor.
+            };
+            //Tercer punto-Promedio de los cilindrajes de los carros
+            //Se va sumando el cilindraje de cada carro insertado en cada iteración, luego se divide en la cantidad de iteracion en la variable promedio afuera del ciclo.
+            suma += parseInt(cilindrajeInsert);
+
+            arraCarros.push(objCarro); //Empuja en cada iteración el objeto carro y lo almacenra en el array en la ultima posición.
+            objCarro = {}; //Vacia el objeto carro para que inicie la siguiente iteración.
+
+        };
+
+        //Continuación tercer punto.
+        let promedio = (suma / cant).toFixed(2);
+
+        //Continuación del quinto punto.
+        arrMenorMayorCilindrajes.push(cilindrajeMenor); //Empuja el cilindraje menor a la primera posición del array.
+        arrMenorMayorCilindrajes.push(CilindrajeMayor); //Empuja el cilindraje mayor a la segunda posición del array.
+
+        //Primer punto- Mostrar un array con la descripción de los carros.
+        console.log(`1.Base de datos de los carros: `);
+        console.log(arraCarros);
+
+        //Continuación del segundo punto, muestra las placas de los carros de cilindraje mayor o igual a 1600.
+        console.log(`2.Placa de los carros con cilindraje mayor a 1600: `);
+        console.log(arraPlacaCarros);
+
+        //Continuación del tercer punto, muestra el valor del promedio de los cilindrajes.
+        console.log(`3.El promedio del cilindraje de los carros es ${promedio}`);
+
+        //Contiluacion del cuarto punto, Muestra la placa del carro de menor cilindraje
+        console.log(`4.La placa del carro con menor cilingraje es ${carroMenorCilindraje}`);
+
+        //Continuación del quinto punto, muestra un array de dos posiciones con el menor y mayor cilindraje.
+        console.log(`5.El menor y mayor cilindraje ingresado: `);
+        console.log(arrMenorMayorCilindrajes); 
+
+        //Sexto punto- Consultar el color de un carro por medio de su placa.(Si no existe mostrar que no existe esa placa).
+        let placaConsulta= prompt(`¿Placa del vehiculo del cual desea consultar el color?`); //Pregunta placa a consultar
+        let colorCarro, placaCoincide=false; //Se declara false y solo se cambia si cumple la condición.
+        //For para recorrer el array de carros e ir comparando la clave de placa con la placa a consultar.
+        for (let a = 0; a < arraCarros.length; a++) {
+            if (placaConsulta === arraCarros[a].placa) {//Se consulta si placaConsulta es igual a la placa en cada posición.
+                placaCoincide=true; //Se cambia para poder usarlo en otro if donde mostraremos el resultado
+                colorCarro=arraCarros[a].color; //Se asigna el color de objeto del carro color a la variable a mostrar.
+            }
+        };
+        if(placaCoincide===true){//Para mostrar los valores del punto 6.
+            console.log(`6.El color del carro de la placa ${placaConsulta} es ${colorCarro} `);
+        }else{
+            console.log(`6.La placa ${placaConsulta} no existe`);
+        };
+    </script>
+</head>
+
 </html>
