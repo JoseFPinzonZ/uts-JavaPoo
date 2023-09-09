@@ -1,0 +1,119 @@
+<html>
+
+<head>
+    <script>
+        let cant = prompt(`Ingrese la cantidad de personas a encuestar`);
+        let arrPersonas = [], arrEdadesMenorMayor=[], arrMenoresTreinta=[];
+        let objPersona = {}, objConsulta;
+        let cedulaInsert, nombreInsert, apellidoInsert, sexoInsert, edadInsert, cedulaConsulta;
+        let contHombres=0, contMujeres=0; //contadores punto 1
+        let edadMayor=0, edadMenor; //Edad mayor y menor punto 2
+        let suma=0; //Para sacar el promedio de edad punto 3
+
+        for (let i = 1; i <= cant; i++) {
+
+            //Pedir cedula
+            cedulaInsert = prompt(`Persona ${i} Ingrese su numero de cedula`);
+            objPersona.cedula = cedulaInsert;
+
+            //Pedir nombre
+            nombreInsert = prompt(`Persona ${i} Ingrese su nombre`);
+            objPersona.nombre = nombreInsert;
+
+            //Pedir apellido
+            apellidoInsert = prompt(`Persona ${i} Ingrese su apellido`);
+            objPersona.apellido = apellidoInsert;
+
+            //pedir sexo
+            sexoInsert = prompt(`Persona ${i} Ingrese su sexo: masculino, femenino`);
+            while (sexoInsert !== "masculino" && sexoInsert !== "femenino") {
+                alert("Entrada no válida. Por favor, ingrese 'masculino' o 'femenino'.");
+                sexoInsert = prompt(`Persona ${i} Ingrese su sexo: masculino, femenino`);
+            }
+            // En este punto, 'sexoInsert' contiene un valor válido ('masculino' o 'femenino').
+            objPersona.sexo=sexoInsert;
+
+            //pedir edad
+            edadInsert=parseInt(prompt(`Persona ${i} Ingrese la edad `));
+            objPersona.edad=edadInsert;
+
+            //Empujar datos al array
+            arrPersonas.push(objPersona);
+
+            //Vaciar objeto para la siguiente iteracion
+            objPersona={};
+
+            //If para determinar cantidad de hombres y mujeres
+            if(sexoInsert==="masculino"){
+                contHombres+=1
+            }else{
+                contMujeres+=1
+            };
+
+            //Determinar la menor edad
+            if(i==1){
+                edadMenor=edadInsert
+            };
+            if(edadInsert<edadMenor){
+                edadMenor=edadInsert;
+            };
+
+            //Determinar la mayor edad
+            if(edadInsert>edadMayor){
+                edadMayor=edadInsert;
+            };
+
+            //Suma acumulada de las edades insertadas para el promedio
+            suma+=edadInsert
+
+            //If para determinar los menos a 30
+            if(edadInsert<=30){
+                arrMenoresTreinta.push(nombreInsert);
+            };
+        };
+
+        //Empujar los datos de edad menor y mayor al array Punto 2
+        arrEdadesMenorMayor.push(edadMenor);
+        arrEdadesMenorMayor.push(edadMayor);
+
+        //Promedio de edades Punto 3
+        let promedio=(suma/cant).toFixed(2);
+
+        //Consulta de datos de usuario potr cedula Punto 4
+        let consulta=false;
+        cedulaConsulta=prompt(`Ingrese la cedula de consulta`);
+        for(let x=0; x<arrPersonas.length; x++){
+            if(cedulaConsulta===arrPersonas[x].cedula){
+                consulta=true
+                objConsulta={nombre:arrPersonas[x].nombre, apellido:arrPersonas[x].apellido, sexo:arrPersonas[x].sexo, edad:arrPersonas[x].edad};
+            }
+        };
+
+        //Mostrar base de datos
+        console.log(arrPersonas);
+
+        //Punto 1 - cantidad de hombres y mujeres
+        console.log(`Punto 1: La cantidad de mujeres es ${contMujeres} y la cantidad de hombres es ${contHombres}`)
+        
+        //Punto 2 - array con 2 posiciones edad menor y mayor
+        console.log(`Punto 2: El array con la menor y mayor edad es :`);
+        console.log(arrEdadesMenorMayor);
+
+        //Punto 3 - La edad promedio
+        console.log(`Punto 3- La edad promedio es ${promedio} años`) 
+
+        //Punto 4 - Consulta de usuario por cedula
+        if(consulta===true){
+            console.log(`Punto 4- Los datos de la cedula ${cedulaConsulta} son: `);
+            console.log(objConsulta);
+        }else{
+            console.log(`No se ha encontrado ese usuario!`)
+        };
+
+        //Punto 5- Array con los nombres de los menores de 30 años
+        console.log(`Punto 5- Los nombres de los menores de 30 años son: `)
+        console.log(arrMenoresTreinta);
+    </script>
+</head>
+
+</html>
