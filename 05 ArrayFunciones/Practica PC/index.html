@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <script>
+        //Realizar un programa que pida una cantidad x de equipos, genere un array con Serial, marca, ram, procesador (I3, I5, I7, I9), Propietario, año de compra.
+        //1.Mostrar el array con toda la informacion
+        //2.Cual es la marca con mas equipos (Lenovo, Acer, HP, Asus)
+        //3.Cual es el PC mas antiguo, mostrar serial, marca y de quien es
+        //4.Cuantos procesadores hay de cada uno
+        //5.consultar marca por medio del serial
+        //6.el equipo com mejor procesador y ram de todos.
+
+        //Definición de variables
+        let arrEquipos = [];
+        let objEquipo = {}, objPcAntiguo = {};
+        let serialInsert, marcaInsert, ramInsert, procesadorInsert, propietarioInsert, añoInsert;
+        let contLenovo = 0, contAcer = 0, contHp = 0, contAsus = 0, contI3 = 0, contI5 = 0, contI7 = 0;
+        let pcAntiguo;
+        let serialConsulta, serialCoincidencia = false, marcaConsulta;
+        let cant = parseInt(prompt`Ingrese la cantidad de equipos`);
+
+        //For para pedir información y asignarla al objeto, y en cada iteración asignarla al array.
+        for (let i = 1; i <= cant; i++) {
+
+            //pedir serial y asignación del objeto en la clave serial
+            serialInsert = prompt(`Ingrese el serial el equipo ${i}`);
+            objEquipo.serial = serialInsert;
+
+            //pedir marca y asignación del objeto en la clave serial
+            marcaInsert = prompt(`Seleccione la marca del equipo ${i}: \n 1.Lenovo \n 2.Acer \n 3.HP \n 4.Asus`);
+            while (marcaInsert !== "1" && marcaInsert !== "2" && marcaInsert !== "3" && marcaInsert !== "4") {
+                alert(`Ingrese una opción valida!`);
+                marcaInsert = prompt(`Seleccione la marca del equipo ${i}:\n 1.Lenovo \n 2.Acer \n 3.HP \n 4.Asus`);
+            };
+            //Switch un caso para cada una de las opciones
+            switch (marcaInsert) {
+                case "1":
+                    objEquipo.marca = "Lenovo";
+                    break;
+                case "2":
+                    objEquipo.marca = "Acer";
+                    break;
+                case "3":
+                    objEquipo.marca = "HP";
+                    break;
+                case "4":
+                    objEquipo.marca = "Asus";
+                    break;
+            };
+            //Pedir cantidad de ram e insertarla en el objeto en la clave ram
+            ramInsert = prompt(`Ingrese la cantidad de memoria RAM ded equipo ${i}`);
+            objEquipo.ram = ramInsert;
+
+            //Pedir procesador e insertarlo en el objeto en la clave procesador
+            procesadorInsert = prompt(`Seleccione el procesador del equipo ${i}: \n 1.I3 \n 2.I5 \n 3.I7 `);
+            while (procesadorInsert !== "1" && procesadorInsert !== "2" && procesadorInsert !== "3") {
+                alert(`Ingrese una opción valida!`);
+                procesadorInsert = prompt(`Seleccione el procesador del equipo ${i}: \n 1.I3 \n 2.I5 \n 3.I7 `);
+            };
+            switch (procesadorInsert) {
+                case "1":
+                    objEquipo.procesador = "I3";
+                    break;
+                case "2":
+                    objEquipo.procesador = "I5";
+                    break;
+                case "3":
+                    objEquipo.procesador = "I7";
+                    break;
+            };
+
+            //Pedir nombre del propietario
+            propietarioInsert = prompt(`Ingrese el nombre del propietario del equipo ${i}`);
+            objEquipo.propietario = propietarioInsert;
+
+            //Pedir año de compra
+            añoInsert = prompt(`Ingrese el año en el que compro el equipo ${i}`);
+            objEquipo.año = añoInsert;
+
+            //Punto 2 - Cantidad de equipos por marca
+            if (objEquipo.marca === "Lenovo") {
+                contLenovo += 1;
+            } else if (objEquipo.marca === "Acer") {
+                contAcer += 1;
+            } else if (objEquipo.marca === "HP") {
+                contHp += 1;
+            } else if (objEquipo.marca === "Asus") {
+                contAsus += 1;
+            };
+
+            arrEquipos.push(objEquipo);
+            objEquipo = {};
+
+            //Punto 3 - Pc antiguo
+            if (i === 1) {
+                pcAntiguo = añoInsert;
+            };
+            if (añoInsert < pcAntiguo) {
+                pcAntiguo = añoInsert;
+                objPcAntiguo.propietario = propietarioInsert;
+                objPcAntiguo.marca = arrEquipos[i - 1].marca;
+                objPcAntiguo.serial = serialInsert;
+            };
+
+            //Punto 4 - Cantidad Procesadores
+            if (arrEquipos[i - 1].procesador === "I3") {
+                contI3 += 1;
+            } else if (arrEquipos[i - 1].procesador === "I5") {
+                contI5 += 1;
+            } else if (arrEquipos[i - 1].procesador === "I7") {
+                contI7 += 1;
+            };
+        };
+
+        //Punto 1 - Mostrar array
+        console.log(`Punto 1 - El array de equipos es: `);
+        console.log(arrEquipos);
+
+        //Punto 2 - Cantidad de equipos por marca
+        console.log(`Punto 2 - La cantidad de equipos por marca son:\n *Lenovo: ${contLenovo}\n *Acer: ${contAcer}\n *HP: ${contHp}\n *Asus: ${contAsus}`);
+
+        //Punto 3 - Pc mas antiguo, serial, marca, propietario
+        console.log(`El Pc mas antiguo es: `);
+        console.log(objPcAntiguo);
+
+        //Punto 4 - Cantidad de procesadores por generación.
+        console.log(`La cantidad de procesadores por generación son: \n *I3=${contI3} \n *I5=${contI5} \n *I7=${contI7}`);
+
+        //Punto 5 - Consulta de marca por serial
+        serialConsulta = prompt(`Ingrese el serial a consultar: `);
+        for (let x = 0; x < arrEquipos.length; x++) {
+            if (serialConsulta === arrEquipos[x].serial) {
+                serialCoincidencia = true;
+                marcaConsulta = arrEquipos[x].marca;
+            };
+        };
+        if (serialCoincidencia === true) {
+            console.log(`La marca del equipo para el serial ${serialConsulta} es ${marcaConsulta}`);
+        }else{
+            console.log(`El serial ${serialConsulta} no existe`);
+        };
+
+    </script>
+</head>
+
+</html>
