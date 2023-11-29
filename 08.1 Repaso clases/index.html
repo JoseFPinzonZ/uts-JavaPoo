@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <body>
+            <script>
+                //Creacion de la clase Estudiante
+                class Estudiante{
+                    //Constructor con los parametros de ingreso
+                    constructor(nombre, edad, notaUno, notaDos, notaTres){
+                        //Atributos iniciales dentro del constructor
+                        this.nombre=nombre;
+                        this.edad=edad;
+                        this.notaUno=notaUno;
+                        this.notaDos=notaDos;
+                        this.notaTres=notaTres;
+                        //1.Cobro de matricula segun la mayoria de edad
+                        if(this.edad>18){
+                            //Creacion de atributo apartir de otro atributo
+                            this.matricula=120000;
+                            this.mayorEdad=true;
+                        }else{
+                            this.matricula=80000;
+                            this.mayorEdad=false;
+                        }
+                    }
+                    //Creacion de metodo - 2.Generar un atributo con el promedio de las notas.
+                    promedioNotasMet(){
+                        //Creacion de atributo dentro de un metodo
+                        this.PromedioNotas=((this.notaUno+this.notaDos+this.notaTres)/3).toFixed(2);
+                    }
+                    //Creacion de metodo - 3.Retorno de la nota mas alta para crear atributo afuera
+                    notaMasAltaMet(){
+                        let notaMasAltaReturn=0;
+                        if(this.notaUno>this.notaDos && this.notaUno>this.notaTres){
+                            notaMasAltaReturn=this.notaUno;
+                        }if(this.notaDos>this.notaUno && this.notaDos>this.notaTres){
+                            notaMasAltaReturn=this.notaDos;
+                        }if(this.notaTres>this.notaDos && this.notaTres>this.notaUno){
+                            notaMasAltaReturn=this.notaTres;
+                        }
+                        //Valor a retornar
+                        return(notaMasAltaReturn);
+                    }
+                    //Creacion de metodo - 4.Retorno de la nota mas baja para crear atriuto afuera
+                    notaMasBajaMet(){
+
+                        if(this.notaUno<this.notaDos && this.notaUno<this.notaTres){
+                            return(this.notaUno);
+                        }
+                        if(this.notaDos<this.notaUno && this.notaDos<this.notaTres){
+                            return(this.notaDos);
+                        }
+                        if(this.notaTres<this.notaUno && this.notaTres<this.notaDos){
+                            return(this.notaTres);
+                        }
+                    }
+                    //Metodo para calcular y crear atributo impuesto va con parametros
+                    calcularImpuesto(base, porcentaje){
+                        this.impuesto=(base*porcentaje)/100;
+                    }
+                }
+                
+                //////////////////////////////////////////////////////////////////////////////
+                // Instaciamos el objeto estudiante1
+                let estudiante1 = new Estudiante("Jose", 25, 4, 5, 3);
+                //Mostramos el objeto instanciado
+                console.log(estudiante1);
+                //Disparar la funcion de promedioNotaMet
+                estudiante1.promedioNotasMet();
+                //Asignar retorno a variable y luego asignar valor de la variable al atributo
+                let notaMayorAtb=estudiante1.notaMasAltaMet();
+                //Crea atributo por fuera  a partir de un metedo retornando
+                estudiante1.NotaMasAlta=notaMayorAtb;
+                //Crear atributo por fuera a partir de un dato solicitado
+                estudiante1.sexo=prompt("Ingrese su sexo");
+                //Mostrar respuesta
+                console.log(`Soy ${estudiante1.nombre}, tengo ${estudiante1.edad}, en el primer corte saque ${estudiante1.notaUno},\nel segundo corte saque ${estudiante1.notaDos} y el tercer corte saque ${estudiante1.notaTres}.\nEl promedio de mis notas es ${estudiante1.PromedioNotas} y mi nota mas alta fue ${estudiante1.NotaMasAlta},\ny mi pago de matricula $${estudiante1.matricula}, mi genero es ${estudiante1.sexo}`)
+                //Renotno nota mas baja
+                estudiante1.notaMasBaja=estudiante1.notaMasBajaMet();
+                //Disparar metodo impuesto y asignar parametros
+                estudiante1.calcularImpuesto(1000000, 10);
+                console.log(`El impuesto a pagar es: $${estudiante1.impuesto}`)
+            </script>
+        </body>
+    </head>
+</html>

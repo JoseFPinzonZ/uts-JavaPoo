@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <body>
+            <script>
+                //Creacion de la clase
+                class asignatura{
+                    //Creacion de constructor con parametros
+                    constructor(nombre, creditos, salon, estudiantesMañana, estudiantesTarde, estudiantesNoche){
+                        //Creacion de variables dentro de constructor
+                        this.nombre=nombre;
+                        this.creditos=creditos;
+                        this.salon=salon;
+                        this.estudiantesMañana=estudiantesMañana;
+                        this.estudiantesTarde=estudiantesTarde;
+                        this.estudiantesNoche=estudiantesNoche;
+                        //Creacion de atributo con otros atributos
+                        this.totalEstudiantes=(this.estudiantesMañana+this.estudiantesTarde+this.estudiantesNoche);
+                    }
+                    //Crear metodo 2.Promedio cantidad de estudiantes
+                    promedioCantEstudiantesMet(){
+                        this.promedioCantEstudiantes=(this.totalEstudiantes/3).toFixed(0);
+                    }
+                    //Crear metodo con retorno 3.Jornada con mayor cantidad de estudiantes
+                    jornadaMayorEstMet(){
+                        if(this.estudiantesMañana>this.estudiantesTarde && this.estudiantesMañana>this.estudiantesNoche){
+                            return("Mañana");
+                        }
+                        if(this.estudiantesTarde>this.estudiantesMañana && this.estudiantesTarde>this.estudiantesNoche){
+                            return("Tarde");
+                        }
+                        if(this.estudiantesNoche>this.estudiantesMañana && this.estudiantesNoche>this.estudiantesTarde){
+                            return("Noche");
+                        }
+                    }
+                    precioAsignatura(horas, costo){
+                        this.costoAsignatura=horas*costo;
+                    }
+                }
+
+                ///////////////////////////////////////////////////////////////////////////////////////////
+                //Instanciar objeto
+                let matematicas = new asignatura ("Matematicas", 4, "302A", 32, 35, 31);
+                //mostrar objeto
+                console.log(`1.Los datos de la asignatura matematicas son: `);
+                console.log(matematicas);
+                //Disparar metodo de promedio de cantidad de estudiantes
+                matematicas.promedioCantEstudiantesMet();
+                console.log(`2.La cantidad promedio de estudiantes es: ${matematicas.promedioCantEstudiantes}.`);
+                //Asignar variable retornada desde el metodo jornada mayor cantidad de estudiantes
+                let jornadaMayorAsig=matematicas.jornadaMayorEstMet();
+                matematicas.jornadaMayorEstudiantes=jornadaMayorAsig;
+                console.log(`3.La jornada con mayor estudiantes es: ${matematicas.jornadaMayorEstudiantes}.`);
+                //Disparar metodo costo asignatura
+                matematicas.precioAsignatura(20, 10000);
+                console.log(`4.El costo de la asignatura es de $${matematicas.costoAsignatura}`)
+            </script>
+        </body>
+    </head>
+</html>

@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <body>
+            <script>
+                class rectangulo {
+                    constructor(){
+                        this.alto=parseInt(prompt(`Ingrese el alto del rectangulo`));
+                        this.ancho=parseInt(prompt(`Ingrese el ancho del rectangulo`));
+                    }
+                    areaMet(){
+                        return(this.alto*this.ancho) 
+                    }
+                    perimetoMet(){
+                        return(2*(this.alto+this.ancho))
+                    }
+                }
+
+                let rect = new rectangulo ();
+                console.log(rect);
+                rect.area=rect.areaMet();
+                rect.perimetro=rect.perimetoMet();
+            </script>
+        </body>
+    </head>
+</html>
