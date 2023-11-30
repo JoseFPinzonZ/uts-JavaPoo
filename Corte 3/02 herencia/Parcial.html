@@ -14,10 +14,12 @@
 </head>
 
 <body class="px-50 pt-5">
+
+    <!--Inicio Formularios-->
     <div class="container">
         <div class="row">
 
-            <!--Inicio nueva columna en el body -->
+            <!--Inicio Registro de Practicantes Oficina de Redes-->
             <div class="col-sm me-2">
                 <div class="card w-100">
                     <div class="card-header">
@@ -26,6 +28,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm me-2">
+
                                 <form id="practicanteForm">
 
                                     <div class="mb-3">
@@ -36,7 +39,8 @@
 
                                     <div class="mb-3">
                                         <label for="edad" class="form-label">Edad</label>
-                                        <input type="number" class="form-control" id="inputEdad" placeholder="Edad" required>
+                                        <input type="number" class="form-control" id="inputEdad" placeholder="Edad"
+                                            required>
                                     </div>
 
                                     <div class="mb-3">
@@ -72,6 +76,8 @@
                                             placeholder="Nota 3" required>
                                     </div>
 
+                                    <!-- Inicio Botones Registro de Practicantes Oficina de Redes   -->
+
                                     <div class="mb-3 d-flex justify-content-between">
                                         <!-- Dispara la funcion registrarPracticante al accionar el boton Registrar
                                             Practicante -->
@@ -83,15 +89,17 @@
                                             onclick="limpiarFormularioPracticantes()">Limpiar Registro</button>
                                     </div>
 
+                                    <!-- Fin Botones Registro de Practicantes Oficina de Redes-->
                                 </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Final nueva columna en el body --->
+            <!--Fin Registro de Practicantes Oficina de Redes-->
 
-            <!-- Inicio Registro de horas --->
+            <!--Inicio Registro de Horas Practicantes-->
             <div class="col-sm ms-2">
 
                 <div class="card w-100">
@@ -116,6 +124,8 @@
                                             placeholder="Horas Trabajadas">
                                     </div>
 
+                                    <!-- Inicio Botones Registro de Horas Practicantes -->
+
                                     <!-- label para mostrar el total de horas acumuladas -->
                                     <div class="mb-3">
                                         <label for="totalHoras" class="form-label">Total de Horas Acumuladas</label>
@@ -130,15 +140,16 @@
                                         <button type="button" class="btn btn-primary"
                                             onclick="limpiarFormularioHoras()">Limpiar Registro</button>
                                     </div>
+
+                                    <!-- Fin Botones Registro de Horas Practicantes -->
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--Fin Registro de Horas Practicantes-->
 
-
-                <!-- Inicio Información Registrada --->
-
+                <!--Inicio Información Registrada-->
                 <div class="card">
                     <div class="card-header">
                         Información Registrada
@@ -159,17 +170,21 @@
                     </div>
                 </div>
             </div>
-            <!-- Final nueva columna en el body -->
+            <!--Fin Información Registrada-->
         </div>
     </div>
+    <!--Fin Formularios-->
+
     <!--Inicio codigo JS-->
-
     <script>
+        //Variables globales
 
+        //Array para almacenar
         let Practicantes = [];
+        //Objeto a instanciar
         let practicanteInst;
 
-        //Clase practicante
+        //Inicio clase practicante
         class Practicante {
             constructor(nombre, edad, sexo, correo, nota1, nota2, nota3) {
 
@@ -183,6 +198,7 @@
                 this.estado = this.calcularAdmision();
                 this.horas = 0;
             }
+
             //Metodos(Fuciones) dentro del constructor
 
             validacionDatos() {
@@ -272,8 +288,11 @@
                 Practicantes.push({ nombre: this.nombre, edad: this.edad, sexo: this.sexo, correo: this.correo, nota1: this.nota1, nota2: this.nota2, nota3: this.nota3, estado: this.estado, horas: this.horas });
 
                 var tabla = document.getElementById("tablaPracticantes");
+                
+                //Crea una fila nueva
                 var fila = tabla.insertRow(1);
 
+                //Insertar celda en la fila
                 var celdaNombre = fila.insertCell(0);
                 var celdaEdad = fila.insertCell(1);
                 var celdaSexo = fila.insertCell(2);
@@ -294,6 +313,7 @@
                 celdaNota3.style.textAlign = "center";
                 celdaEstado.style.textAlign = "center";
 
+                //Asignar valores a las celdas
                 celdaNombre.innerHTML = this.nombre;
                 celdaEdad.innerHTML = this.edad;
                 celdaSexo.innerHTML = this.sexo;
@@ -313,8 +333,11 @@
             }
 
         }
+        //Fin clase practicante
 
         //Funciones fuera del constructor 
+
+        //Inicio Funciones formulario Registro de Practicantes Oficina de Redes
 
         const limpiarFormularioPracticantes = () => {
             document.getElementById('inputNombre').value = '';
@@ -345,6 +368,11 @@
             practicanteInst.agregarPracticante();
 
         }
+
+        //Fin Funciones formulario Registro de Practicantes Oficina de Redes
+
+
+        //Inicio Funciones formulario Registro de Horas Practicantes
 
         const actualizarMenuDesplegable = () => {
             // Obtener el menú desplegable
@@ -394,7 +422,6 @@
                 return;
             }
 
-
             // Obtener el practicante seleccionado en el menú desplegable
             const practicanteSeleccionado = document.getElementById('inputPracticanteAdmitido').value;
 
@@ -414,9 +441,10 @@
             // Actualizar el campo 'totalHoras' en el HTML usando innerHTML
             document.getElementById('labelTotalHoras').innerHTML = Practicantes[indicePracticante].horas;
             document.getElementById('inputHorasTrabajadas').value = '';
-            console.clear();
-            console.log(Practicantes);
-            console.log(practicanteInst);
+            
+            //console.clear();
+            //console.log(Practicantes);
+            //console.log(practicanteInst);
         };
 
         const limpiarFormularioHoras = () => {
@@ -425,9 +453,14 @@
             document.getElementById('labelTotalHoras').innerHTML = '';
 
         };
+
+        //Fin Funciones formulario Registro de Horas Practicantes
+
         // Asociar la función actualizarHorasPorPracticante al evento de cambio en el menú desplegable
         document.getElementById('inputPracticanteAdmitido').addEventListener('change', actualizarHorasPorPracticante);
     </script>
+    <!--Fin codigo JS-->
+
 </body>
 
 </html>
